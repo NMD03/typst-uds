@@ -1,29 +1,28 @@
 #import "template.typ" : *
 
 #show: thesis.with(
-  title: "Creating a Typst template",
+  title: "Typst Template for UDS",
   author: "Your name",
-  type: "TX000",
-  student_id: "change-me",
-  course: "TINF2XA",
+  type: "Master Thesis",
+  student_id: "XXXXXXXXXXX",
   date: datetime(
     year: 1984,
     month: 10,
     day: 10,
   ),
   time_period: "01.01.2023 - 00.00.2024",
-  confidentiality_clause: true,
+  confidentiality_clause: false,
   language: "en",
   supervisor: "Someone",
-  signature: none, // TODO
+  first_referee: "Someone else",
+  second_referee: "Someone else",
+  signature: "hide", // TODO
 )
 
 // NOTE: https://www.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Studierende/191212_Leitlinien_Praxismodule_Studien_Bachelorarbeiten.pdf
 
 // Requirements:
-// - 25-35 pages without directories und attachments
-//   incl. graphics and tables
-// - must document: task, process of implementation, solutions and results
+//
 
 = Introduction
 

@@ -3,29 +3,21 @@
 #let acroStates = state("acronymStates", ());
 
 #let english_pack = (
-	degree_1: "for the",
-	degree_2: "from the Course of Studies Computer Science",
 	by: "by",
 	time_period: "Time Period",
-	student_id_course: "Student ID, Course",
+        student_id: "Student ID",
 	company: "Company",
-	supervisor: "Supervisor in the Company",
+	supervisor: "Advisor",
+        first_referee: "1. Referee",
+        second_referee: "2. Referee", 
 	decleration: (type, title) => [
 		= Author's Declaration
-
-		Hereby I solemnly declare:
-
-		+ that this #type, titled #text(style: "italic")[#title] is entirely the product of my own scholarly work, unless otherwise indicated in the text or references, or acknowledged below;
-
-		+ I have indicated the thoughts adopted directly or indirectly from other sources at the appropriate places within the document;
-
-		+ this #type has not been submitted either in whole or part, for a degree at this or any other university or institution;
-
-		+ I have not published this #type in the past;
-
-		// + the printed version is equivalent to the submitted one.
-
-		I am aware that a dishonest declaration will entail legal consequences.
+                I declare under oath that I have prepared the paper at hand independently
+                and without the help of others and that I have not used any other sources
+                and resources than the ones stated. Parts that have been taken literally or
+                correspondingly from published or unpublished texts or other sources have
+                been labelled as such. This paper has not been presented to any examination
+                board in the same or similar form before.
 	],
 	abstract: "Abstract",
 	contents: "Contents",
@@ -46,13 +38,13 @@
 
 // TODO: Check alignment to LaTeX template
 #let german_pack = (
-	degree_1: "für den",
-	degree_2: "im Studiengang Informatik an der Dualen Hochschule Baden-Württemberg Stuttgart",
 	by: "von",
 	time_period: "Bearbeitungszeitraum",
 	student_id_course: "Matrikelnummer, Kurs",
 	company: "Ausbildungsfirma",
 	supervisor: "Betreuer",
+        first_referee: "1. Korrekteur",
+        second_referee: "2. Korrekteur",
 	decleration: (type, title) => [
 		== Erklärung
 
@@ -94,11 +86,12 @@
 	// your student id / matriculation number
 	student_id: none,
 	// the name of your course, such as "TINF21A"
-	course: none,
 	signature: none,
 
 	// the name of your supervisor
 	supervisor: none,
+        first_referee: none,
+        second_referee: none,
 
 	// the due date of your thesis
 	date: none,
@@ -108,24 +101,24 @@
 	// the type of your thesis, such as T1000, T2000, etc.
 	type: none,
 	// your degree, such as "Bachelor of Science"
-	degree: "Bachelor of Science",
+	degree: "Master of Science",
 	// your major, such as "Computer Science"
-	major: "Computer Science",
+	major: "Cyber Security",
 	// Change the language to `de` if desired
 	language: "en",
 
 	// Details on your university
 	university: (
-		name: "Cooperative State University Baden-Württemberg",
-		location: "Stuttgart",
-		image: "assets/dhbw.svg",
+		name: "Saarland university",
+		location: "Saarbrücken",
+		image: "assets/uds.svg",
 	),
 
-	// Details on your company
-	company: (
-		name: "Hewlett Packard Enterprise",
-		image: "assets/hpe.svg",
-	),
+	//// Details on your company
+	//company: (
+	//	name: "Hewlett Packard Enterprise",
+	//	image: "assets/hpe.svg",
+	//),
 
 	// Does the document require a Confidentiality Clause?
 	confidentiality_clause: false,
@@ -137,7 +130,7 @@
 	// Citation style:
 	// Customized includes ISBNs and
 	// writes DOI in capital letters
-	customized_ieee_citations: true,
+	customized_ieee_citations: false,
 
 	// The contents of your abstract
 	abstract: include "./abstract.typ",
@@ -162,10 +155,11 @@
 	#assert.ne(author, none)
 	#assert.ne(student_id, none)
 	#assert.ne(type, none)
-	#assert.ne(course, none)
 	#assert.ne(date, none)
 	#assert.ne(time_period, none)
 	#assert.ne(supervisor, none)
+        #assert.ne(first_referee, none)
+        #assert.ne(second_referee, none)
 
 	// Use english by default
 	#let selected_lang = if language == "de" {german_pack} else {english_pack}
@@ -265,17 +259,20 @@
 		}
 	})
 
-	// beginning of the document, render the title page
+	// ==========================
+        // beginning of the document
+        // ==========================
+
+        // ==========================
+        // Start of the title pages
+        // ==========================
 
 	#set align(center)
 
 	// nice
 	#grid(
-		columns: (1fr, 1fr),
-		align(center)[
-			#image(company.image, width: 69%)
-		],
-		align(center)[
+		columns: (1fr),
+                        align(center)[
 			#image(university.image, width: 69%)
 		],
 	)
@@ -287,14 +284,14 @@
 	#set par(justify: true)
 
 	#text(16pt)[*#type*]
-	#v(16pt)
+	//#v(14pt)
 
-	#text(14pt, selected_lang.degree_1)
+	//#text(14pt, selected_lang.degree_1)
 
-	#text(14pt)[*#degree*]
+	//#text(14pt)[*#degree*]
 
-	#text(14pt)[#selected_lang.degree_2 #major]
-	#v(32pt)
+	//#text(14pt)[#selected_lang.degree_2 #major]
+	//#v(32pt)
 
 	#text(14pt, selected_lang.by)
 
@@ -308,56 +305,44 @@
 	#grid(
 		columns: (1fr, 0.5fr, 1fr),
 		align(left)[
-			*#selected_lang.time_period* \
-			*#selected_lang.student_id_course* \
-			*#selected_lang.company* \
-			*#selected_lang.supervisor*
+			//*#selected_lang.time_period* \
+			//*#selected_lang.student_id* \
+			*#selected_lang.supervisor* \
+                        *#selected_lang.first_referee* \
+                        *#selected_lang.second_referee*
 		],
 		none,
 		align(left)[
-			#time_period \
-			#student_id, #course \
-			#company.name \
-			#supervisor
+			//#time_period \
+			//#student_id \
+			#supervisor \
+                        #first_referee \
+                        #second_referee
 		],
 	)
 
 	#pagebreak()
 	#set align(top)
 	#set align(left)
+        // End of title page
 
 	// initially set the page numbering to roman
 	#set page(numbering: "I")
 	#counter(page).update(1)
 
-	// https://www.dhbw.de/fileadmin/user_upload/Dokumente/Broschueren_Handbuch_Betriebe/Infoblatt_Vertraulichkeit.pdf
-	// English by default
-	#if confidentiality_clause {
-		selected_lang.confidentiality_clause
-		pagebreak(weak: true)
-	}
+        // ==========================
+        // Sworn Declaration
+        // ==========================
 
-	// render the abstract aligned to the center of the page
-	#set align(horizon)
-	#set align(center)
-
-	#heading(outlined: true, selected_lang.abstract)
-
-	#block(width: 80%)[
-		#set align(left)
-		#abstract
-	]
-
-	#pagebreak()
-
-	#set align(top)
+       	#set align(top)
 	#set align(start)
 
 	#(selected_lang.decleration)(type, title)
 	
-	#v(48pt)
+        #set align(bottom)
+	// #v(48pt)
 
-	#university.location, #date.display("[day].[month].[year]")
+	// #university.location, #date.display("[day].[month].[year]")
 	// #v(48pt)
 
 	#box(width: 196pt, height: 40pt)[
@@ -374,13 +359,38 @@
 		}
 		#v(0pt, weak: true)
 		#line(length: 100%)
-		#author
+		// #author
+                #university.location, #date.display("[day].[month].[year]")
+
+	]
+
+        #v(48pt)
+
+	#pagebreak()
+
+        // end of sworn declaration
+        
+        // ==========================
+        // Abstract
+        // ==========================
+
+	#set align(horizon)
+	#set align(center)
+
+	#heading(outlined: true, selected_lang.abstract)
+
+	#block(width: 80%)[
+		#set align(left)
+		#abstract
 	]
 
 	#pagebreak()
 
-	// = #selected_lang.contents
+        // End of abstract
+        
 
+        #set align(top)
+        #set align(left)
 	#set outline(
 		indent: n => {
 			// Max indent is 2
