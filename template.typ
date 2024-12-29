@@ -178,7 +178,7 @@
 
 	// suggested font and font size by the DHBW style guide
 	#set text(
-		font: "Linux Libertine",
+		font: "Libertinus Serif",
 		// font: "New Computer Modern Sans",
 		size: 12pt,
 		hyphenate: false,
@@ -509,8 +509,8 @@
 #let acro(short, pref: "normal", append: "") = {
 	let item = acronyms.at(short)
 
-	locate(loc => {
-	let entries = acroStates.at(loc).filter(e => e == short);
+	context {
+	let entries = acroStates.at(here()).filter(e => e == short);
 
 	// Already used once
 	if entries.len() > 0 {
@@ -528,7 +528,7 @@
 			link(label(short))[#item#append (#short)]
 		}
 	}
-	});
+	}
 }
 
 #let acroOnce(main, inside) = [#main (#inside)]

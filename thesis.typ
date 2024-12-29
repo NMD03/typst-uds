@@ -19,7 +19,6 @@
   signature: "hide", // TODO
 )
 
-// NOTE: https://www.dhbw.de/fileadmin/user_upload/Dokumente/Dokumente_fuer_Studierende/191212_Leitlinien_Praxismodule_Studien_Bachelorarbeiten.pdf
 
 // Requirements:
 //

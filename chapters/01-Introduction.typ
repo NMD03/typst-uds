@@ -115,3 +115,17 @@ Use the `signature` property.
 Set it to `hide`, to leave some blank space for you to sign manually,
 e.g. in a printed version.
 Or put in the path to your signature image or svg.
+
+== Citations 
+This is a test @harry
+
+== Images
+
+#figure(
+  image("../assets/uds.svg", width: 70%),
+  kind: "image",
+  supplement: "Image",
+  caption: [
+    This is a test caption
+  ],
+) <test>
