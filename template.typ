@@ -193,7 +193,7 @@
 	)
 
 	// do not justify inside of figures, incl. tables
-	#show figure: set par (justify: false)
+	#show figure: set par(justify: false)
 
 	#set figure(
 		numbering: "I"
@@ -397,7 +397,6 @@
 			if n > 2 { n = 2 }
 			return n * 2em
 		},
-		fill: repeat(" . ")
 	)
 	#show outline.entry.where(level: 1): it => {
 		if it.element.func() != heading { return it }
