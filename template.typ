@@ -400,7 +400,7 @@
 	)
 	#show outline.entry.where(level: 1): it => {
 		if it.element.func() != heading { return it }
-		show ".": ""
+		// show ".": ""
 		v(2pt)
 		strong(it)
 	}
